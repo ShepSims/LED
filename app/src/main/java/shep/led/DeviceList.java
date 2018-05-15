@@ -21,7 +21,8 @@ public class DeviceList extends AppCompatActivity {
     Button btnPaired;
     ListView devicelist;
     private BluetoothAdapter myBluetooth = null;
-    private Set pairedDevices;
+    private Set <BluetoothDevice> pairedDevices;
+    public static String EXTRA_ADDRESS = "device_address";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,8 @@ public class DeviceList extends AppCompatActivity {
         devicelist.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
 
     }
+
+
 
     private AdapterView.OnItemClickListener myListClickListener = new AdapterView.OnItemClickListener()
     {
