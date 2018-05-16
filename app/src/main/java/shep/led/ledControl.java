@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -22,7 +23,7 @@ import java.util.UUID;
 public class ledControl extends AppCompatActivity {
 
     Button btnOn, btnOff, btnDis;
-    SeekBar brightness;
+    SeekBar speed;
     String address = null;
     private ProgressDialog progress;
     BluetoothAdapter myBluetooth = null;
@@ -35,6 +36,8 @@ public class ledControl extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_led_control);
 
+        new ConnectBT().execute();
+
         //receive the address of the bluetooth device
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
@@ -45,7 +48,7 @@ public class ledControl extends AppCompatActivity {
         btnOn = (Button)findViewById(R.id.button2);
         btnOff = (Button)findViewById(R.id.button3);
         btnDis = (Button)findViewById(R.id.button4);
-        brightness = (SeekBar)findViewById(R.id.seekBar);
+        speed = (SeekBar)findViewById(R.id.seekBar);
 
         btnOn.setOnClickListener(new View.OnClickListener()
         {
@@ -73,7 +76,7 @@ public class ledControl extends AppCompatActivity {
             }
         });
 
-        brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        speed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser==true)
@@ -113,7 +116,7 @@ public class ledControl extends AppCompatActivity {
         {
             try
             {
-                btSocket.getOutputStream().write("TF".toString().getBytes());
+                btSocket.getOutputStream().write("example".toString().getBytes());
             }
             catch (IOException e)
             {
